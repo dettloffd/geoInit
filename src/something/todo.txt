@@ -1,0 +1,4 @@
+- Add floating country names on mouseover of flag 
+- Divide up africa. add central america to regiions (and zoom properties for them)
+- css for everything...
+- menu bar
