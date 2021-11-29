@@ -52,7 +52,7 @@ const HeaderMenu = (props) => {
 
   return (
     <AppBar
-      sx={{ backgroundColor: "primary", minHeight: 60 }}
+      sx={{ backgroundColor: "primary", minHeight: 120 }}
       elevation={5}
       position="static"
     >

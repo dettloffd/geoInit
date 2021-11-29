@@ -132,16 +132,30 @@ const Game = () => {
 
   const generateCards = () => {
     return (
-      <Box
-        //maxWidth="10%"
-        maxWidth={gameState.difficulty == 8 ? "7.5%" : "10%"}
-        display="flex"
-        flexDirection="column"
-        justifyContent="space-evenly"
-        flexWrap="wrap"
+      <Grid container
+      container
+      direction="row"
+      justifyContent="space-evenly"
+      alignItems="center"
+      xs={8}
+      
+      // sx={{
+      //   display: "flex",
+      //   maxHeight: "50%",
+      //   maxWidth: "50%",
+      //   flexDirection: "row",
+      //   justifyContent: "space-evenly"
+        
+      // }}
+        // maxHeight={"50%"}
+        // maxWidth={"90%"}
+        // display="flex"
+        // flexDirection="row"
+        
+        //flexWrap="wrap"
       >
         {gameState.flags.map((flag) => (
-          <Box>
+          <Grid item xs={1}>
             <FlagCard
               key={flag.id}
               countryName={flag.name}
@@ -151,9 +165,9 @@ const Game = () => {
               displayHoveredOverFlag={displayHoveredOverFlag}
               pickedCountry={gameState.pickedCountry}
             />
-          </Box>
+          </Grid>
         ))}
-      </Box>
+      </Grid>
       // </Grid>
     );
   };
@@ -190,17 +204,14 @@ const Game = () => {
 
   return (
     <>
-      <Container sx={{ display: "flex", flexDirection: "column" }}>
-        {/* <Button variant="outlined" onClick={handleClickOpen}>
-          Open Region Dialog
-        </Button> */}
-        Streak: {gameState.streakCounter}
-        <br />
-        Correct this game: {gameState.correctChoices}
-        <br />
-        Incorrect this game: {gameState.incorrectChoices}
-        <br />
-        Incorrect this round: {gameState.thisRoundIncorrect}
+       <Grid Container > 
+      
+      <Grid Container xs={11} justifyItems="center" >
+
+        
+
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Box>
         <HeaderMenu
           handleOpenRegionSelector={handleOpenRegionSelector}
           hoveredOverFlagName={hoveredOverFlagName}
@@ -210,14 +221,19 @@ const Game = () => {
         >
           {/* <HeaderMenu handleOpenRegionSelector={() => handleOpenRegionSelector()}> */}
         </HeaderMenu>
+        </Box>
+        
         {/* <SnackbarAlert open={snackbarState.openSnackbar} onClose={handleCloseSnackbar} messageType={snackbarState.severity}></SnackbarAlert> */}
         {/* {scoreState.incorrectChoices} */}
         <RegionSelectorPopup open={openRegionSelector} onClose={handleClose} />
         {/* <Grid border={"5px dashed grey"} container xs={9} spacing={2}> */}
         <Button onClick={keepPlaying}>Keep Playing</Button>
+        
+        {cards}
+        
         {mysnack}
         <Box display="flex" justifyContent="space-around">
-          <Box className="mapTest" minWidth="75%">
+          <Box className="mapTest" minWidth="60%">
             <MapTing
               setTooltipContent={setContent}
               someCoords={gameState.someCoords}
@@ -229,11 +245,13 @@ const Game = () => {
             <ReactTooltip>{content}</ReactTooltip>
           </Box>
 
-          {cards}
+          
+        </Box>
         </Box>
         {/* <button onClick={() => setOpenPopup(true)}>launch modal</button> */}
         <button onClick={resetGame}>reset</button>
-      </Container>
+      </Grid>
+      </Grid>
     </>
   );
 };
