@@ -26,8 +26,6 @@ const MapTing = (props) => {
     regionCoords();
   }, [props.regionSettings]);
 
-  console.log(props);
-
   const regionCoords = () => {
     switch (props.regionSettings) {
       case "Americas":
@@ -181,6 +179,7 @@ const MapTing = (props) => {
   return (
     <>
       <ComposableMap>
+        
         <ZoomableGroup center={mapView.mapCoords} zoom={mapView.mapZoom}>
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
@@ -232,8 +231,9 @@ const MapTing = (props) => {
           </Geographies>
         </ZoomableGroup>
       </ComposableMap>
-      {props.chosenRegion}
+      
       <button onClick={getStuff}>getgetget</button>
+      
       {/* <button value={"Europe"} onClick={(e) => chooseRegion(e.target.value) } >europe</button>
       <button value={"Asia"} onClick={(e) => chooseRegion("Asia") } >Asia</button>
       <button value={"Asia"} onClick={(e) => chooseRegion("Africa") } >Africa</button> */}

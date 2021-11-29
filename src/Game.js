@@ -26,6 +26,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { Container } from "@mui/material";
 
 import ReactTooltip from "react-tooltip";
 import MapTing from "./MapTing.js";
@@ -33,8 +34,7 @@ import HeaderMenu from "./HeaderMenu.js";
 import SnackbarAlert from "./SnackbarAlert.js";
 import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
-import Slide from '@mui/material/Slide';
-
+import Slide from "@mui/material/Slide";
 
 // import "./Game.css";
 
@@ -52,15 +52,15 @@ const Game = () => {
   const [openRegionSelector, setOpenRegionSelector] = useState(false);
 
   const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
     setSnackbarState((prevState) => ({
       ...prevState,
-      
-      openSnackbar: false
-    }))
+
+      openSnackbar: false,
+    }));
   };
 
   function TransitionRight(props) {
@@ -90,7 +90,7 @@ const Game = () => {
     continueGame,
     scoreState,
     snackbarState,
-    setSnackbarState
+    setSnackbarState,
   } = useContext(GlobalState);
   //const [flags, setFlags] = useState([]);
   //const [pickedCountry, setPickedCountry] = useState("");
@@ -132,9 +132,16 @@ const Game = () => {
 
   const generateCards = () => {
     return (
-      <div border={"5px dashed grey"}>
+      <Box
+        //maxWidth="10%"
+        maxWidth={gameState.difficulty == 8 ? "7.5%" : "10%"}
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-evenly"
+        flexWrap="wrap"
+      >
         {gameState.flags.map((flag) => (
-          <Grid item xs={8}>
+          <Box>
             <FlagCard
               key={flag.id}
               countryName={flag.name}
@@ -144,9 +151,9 @@ const Game = () => {
               displayHoveredOverFlag={displayHoveredOverFlag}
               pickedCountry={gameState.pickedCountry}
             />
-          </Grid>
+          </Box>
         ))}
-      </div>
+      </Box>
       // </Grid>
     );
   };
@@ -160,11 +167,22 @@ const Game = () => {
     }));
   };
 
-  
   const something = () => {
     return (
-      <Snackbar open={snackbarState.openSnackbar} autoHideDuration={1500} onClose={handleSnackbarClose}>
-        <Alert onClose={handleClose} severity={snackbarState.severity} sx={{ width: '100%' }}>{snackbarState.severity == "success" ? 'okay cool' : 'nuh bruh'}</Alert>
+      <Snackbar
+        open={snackbarState.openSnackbar}
+        autoHideDuration={1500}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        sx={{width: "30%", height: "20%"}}
+      >
+        <Alert
+          onClose={handleClose}
+          severity={snackbarState.severity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarState.severity == "success" ? "okay cool" : "nuh bruh"}
+        </Alert>
       </Snackbar>
     );
   };
@@ -172,15 +190,7 @@ const Game = () => {
 
   return (
     <>
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        className="mainDiv"
-
-        //maxHeight={'80vh'}
-      >
+      <Container sx={{ display: "flex", flexDirection: "column" }}>
         {/* <Button variant="outlined" onClick={handleClickOpen}>
           Open Region Dialog
         </Button> */}
@@ -191,56 +201,39 @@ const Game = () => {
         Incorrect this game: {gameState.incorrectChoices}
         <br />
         Incorrect this round: {gameState.thisRoundIncorrect}
-        <Button onClick={keepPlaying}>Keep Playing</Button>
-        
-        <Grid item width="75%" xs={8}>
-          <HeaderMenu
-            handleOpenRegionSelector={handleOpenRegionSelector}
-            hoveredOverFlagName={hoveredOverFlagName}
-            numCorrect={gameState.correctChoices}
-            numIncorrect={gameState.incorrectChoices}
-            
-          >
-            {/* <HeaderMenu handleOpenRegionSelector={() => handleOpenRegionSelector()}> */}
-          </HeaderMenu>
-
-          {/* <SnackbarAlert open={snackbarState.openSnackbar} onClose={handleCloseSnackbar} messageType={snackbarState.severity}></SnackbarAlert> */}
-        </Grid>
+        <HeaderMenu
+          handleOpenRegionSelector={handleOpenRegionSelector}
+          hoveredOverFlagName={hoveredOverFlagName}
+          numCorrect={gameState.correctChoices}
+          numIncorrect={gameState.incorrectChoices}
+          streak={gameState.streakCounter}
+        >
+          {/* <HeaderMenu handleOpenRegionSelector={() => handleOpenRegionSelector()}> */}
+        </HeaderMenu>
+        {/* <SnackbarAlert open={snackbarState.openSnackbar} onClose={handleCloseSnackbar} messageType={snackbarState.severity}></SnackbarAlert> */}
         {/* {scoreState.incorrectChoices} */}
         <RegionSelectorPopup open={openRegionSelector} onClose={handleClose} />
         {/* <Grid border={"5px dashed grey"} container xs={9} spacing={2}> */}
-        
-        <Grid container xs={8} spacing={2}>
+        <Button onClick={keepPlaying}>Keep Playing</Button>
         {mysnack}
-          <Grid item xs={10} className="mapTest">
+        <Box display="flex" justifyContent="space-around">
+          <Box className="mapTest" minWidth="75%">
             <MapTing
               setTooltipContent={setContent}
               someCoords={gameState.someCoords}
               regionSettings={gameState.chosenRegion}
               pickedCountry={gameState.pickedCountry}
+              hoveredOverFlagName={hoveredOverFlagName}
             />
 
             <ReactTooltip>{content}</ReactTooltip>
-          </Grid>
-          <Grid
-            container
-            direction={"row"}
-            //justifyContent={'center'}
-            //overflow={"hidden"}
-            xs={2}
-            //maxHeight={"100%"}
-            className="flagDock"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            {cards}
-          </Grid>
+          </Box>
 
-          {/* <button onClick={() => setOpenPopup(true)}>launch modal</button> */}
-        </Grid>
+          {cards}
+        </Box>
+        {/* <button onClick={() => setOpenPopup(true)}>launch modal</button> */}
         <button onClick={resetGame}>reset</button>
-
-      </Grid>
+      </Container>
     </>
   );
 };

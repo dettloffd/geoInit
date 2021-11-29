@@ -5,6 +5,8 @@ import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import CheckCircleOutlineTwoToneIcon from "@mui/icons-material/CheckCircleOutlineTwoTone";
+import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
+import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -50,7 +52,7 @@ const HeaderMenu = (props) => {
 
   return (
     <AppBar
-      sx={{ backgroundColor: "primary", minHeight: 120 }}
+      sx={{ backgroundColor: "primary", minHeight: 60 }}
       elevation={5}
       position="static"
     >
@@ -122,11 +124,16 @@ const HeaderMenu = (props) => {
           
 
           <Box>
-          <CheckCircleOutlineTwoToneIcon fontSize="large"></CheckCircleOutlineTwoToneIcon>
+          <DangerousOutlinedIcon fontSize="large"></DangerousOutlinedIcon>
           {props.numIncorrect}/{props.numIncorrect + props.numCorrect}{" "}
-          {"(" + displayPercent(percentageWrong) + "%)"}</Box>
+          {"(" + displayPercent(percentageWrong) + "%)"}
+          
+          
+          </Box>
 
-          <Box>nutting</Box>
+          <Box><LocalFireDepartmentOutlinedIcon></LocalFireDepartmentOutlinedIcon>
+          {props.streak}
+          </Box>
 
 
         </Box>

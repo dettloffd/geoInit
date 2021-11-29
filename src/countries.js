@@ -199,7 +199,7 @@ const countries = [
   {src: "http://flagpedia.net/data/flags/normal/ie.png", name: "Ireland", regions: ["Europe", "Western Europe"]},
   {src: "http://flagpedia.net/data/flags/normal/is.png", name: "Iceland", regions: ["Europe"]},
   {src: "http://flagpedia.net/data/flags/normal/it.png", name: "Italy", regions: ["Europe"]},
-  {src: "http://flagpedia.net/data/flags/normal/rs.png", name: "Kosovo", regions: ["Europe"]},
+  {src: "http://flagpedia.net/data/flags/normal/xk.png", name: "Kosovo", regions: ["Europe"]},
   {src: "http://flagpedia.net/data/flags/normal/lt.png", name: "Lithuania", regions: ["Europe"]},
   {src: "http://flagpedia.net/data/flags/normal/lu.png", name: "Luxembourg", regions: ["Europe", "Western Europe"]},
   {src: "http://flagpedia.net/data/flags/normal/lv.png", name: "Latvia", regions: ["Europe"]},
