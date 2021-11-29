@@ -27,7 +27,10 @@ export const GlobalProvider = (props) => {
     thisRoundIncorrect: 0,
   });
 
-
+  const [snackbarState, setSnackbarState] = useState({
+    openSnackbar: false,
+    severity: ""
+  })
 
   const constructArray = () => {
     // let myArr = [];
@@ -81,6 +84,7 @@ export const GlobalProvider = (props) => {
         console.log(item);
 
         updateStats(item);
+        updateSnackbar(item);
         return updatedItem;
       }
       return item;
@@ -127,13 +131,24 @@ export const GlobalProvider = (props) => {
     }));
     //updateStats(param);
 
-    console.log(gameState.flags);
-
     //updateStats(param);
     //console.log(gameScore);
     //console.log("PARAM ISSSSS...")
     //console.log(param);
   };
+
+  const updateSnackbar = (something) => {
+    //console.log(something.name);
+
+    setSnackbarState({
+      openSnackbar: true,
+      severity: something.name == gameState.pickedCountry ? "success" : "error"
+
+    });
+
+    console.log(snackbarState.severity);
+
+  }
 
   const updateStats = (param) => {
     setGameState((prevState) => ({
@@ -161,40 +176,11 @@ export const GlobalProvider = (props) => {
           : 0,
     }));
     //param.name != gameState.pickedCountry ? setScoreState.incorrectChoices(1) : setOtherState(0);
-    console.log("PARAM ISSSSS...");
-    console.log(gameState.flags[param]);
+   //// console.log("PARAM ISSSSS...");
+    ///console.log(gameState.flags[param]);
+    //determineWinState();
+    
   };
-
-
-  // const updateStats = (param) => {
-  //   setScoreState((prevState) => ({
-  //     ...prevState,
-  //     //flags: updatedArray,
-  //     isWon: param.name == gameState.pickedCountry ? true : false,
-  //     correctChoices:
-  //       param.name == gameState.pickedCountry
-  //         ? gameState.correctChoices++
-  //         : gameState.correctChoices,
-  //     correctChoices: param == gameState.pickedCountry ? gameState.correctChoices++ : gameState.correctChoices,
-
-  //     incorrectChoices:
-  //       param.name != gameState.pickedCountry
-  //         ? scoreState.incorrectChoices + 1
-  //         : scoreState.incorrectChoices,
-  //     thisRoundIncorrect:
-  //       param.name == gameState.pickedCountry
-  //         ? 0
-  //         : gameState.thisRoundIncorrect+1,
-  //     streakCounter:
-  //       param.name == gameState.pickedCountry &&
-  //       gameState.thisRoundIncorrect == 0
-  //         ? gameState.streakCounter++
-  //         : 0,
-  //   }));
-  //  // param.name != gameState.pickedCountry ? setScoreState({incorrectChoices: scoreState.incorrectChoices + 1}) : setScoreState({incorrectChoices: scoreState.incorrectChoices});
-  // };
-
-
 
   const fullReset = () => {
     constructArray();
@@ -247,6 +233,14 @@ export const GlobalProvider = (props) => {
     constructArray();
   };
 
+
+  // const determineWinState = () => {
+  //   if (gameState.isWon == true){
+  //     continueGame();
+  //   }
+
+  // }
+
   return (
     <GlobalState.Provider
       value={{
@@ -260,6 +254,9 @@ export const GlobalProvider = (props) => {
         fullReset,
         continueGame,
         scoreState,
+        snackbarState,
+        setSnackbarState,
+        updateSnackbar
         // gameScore,
         // setGameScore
       }}
