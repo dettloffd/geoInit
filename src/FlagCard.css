@@ -1,6 +1,8 @@
 .flag-card img {
   width: 100%;
   height: 100%;
+  display: block; 
+  /* display block fixed issue */
 }
 
 .flag-card-wrong {
@@ -11,6 +13,7 @@
   opacity: 0.5;
   width: 100%;
   height: 100%;
+  
 }
 
 .flag-card-right {
@@ -19,6 +22,7 @@
   background-color: green;
 }
 
+.flag-card,
 .flag-card-right,
 .flag-card-wrong {
   /* box-shadow: 0 20px 20px rgba(0, 0, 0, 0.23);  */

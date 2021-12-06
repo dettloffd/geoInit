@@ -1,4 +1,16 @@
+- fix double clicking on incorrect counting twice
+- menu bar
 - Add floating country names on mouseover of flag 
 - Divide up africa. add central america to regiions (and zoom properties for them)
 - css for everything...
-- menu bar
+
+-tooltips on scores
+- hard reset button
+
+
+
+WISH
+- HIstory feature to prevent the same one coming up.. 
+- Stutter when reloading at times
+- Click on country from name/flag feature
+- few more regions

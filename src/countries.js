@@ -1,46 +1,3 @@
-// https://stackoverflow.com/questions/35099779/javascript-if-a-value-exists-in-an-object
-// https://stackoverflow.com/questions/35948669/how-to-check-if-a-value-exists-in-an-object-using-javascript
-
-/// mess with this from last post.. maybe obj.keys(someobject.regions).foreach?? 
-
-// var obj = {
-//   "a": "test1",
-//   "b": "test2"
-// };
-
-// Object.keys(obj).forEach(function(key) {
-//  if (obj[key] == 'test1') {
-//    alert('exists');
-//  }
-// });
-/// or even better probably...
-
-// var obj = {
-//   "a": "test1",
-//   "b": "test2"
-// };
-
-// if (Object.values(obj).includes('test1')) {
-//  alert('exists');
-// }
-
-///////NVM:
-////////////This works, but have to go through and change regions in this way.. 
-//every country will need a "regions" value which contains an array with the regions.. 
-
-// for (i = 0; i < countries.length; i++) {
-
-//   if (countries[i].regions.includes("SomeRegion")) {
-//     console.log("very cool");
-//   } else {
-//     console.log("not cool");
-//   }
-
-
-// }
-
-
-
 const countries = [
   //AMERICAS
   {src: "http://flagpedia.net/data/flags/normal/ar.png", name: "Argentina", regions: ["Americas", "South America"]},
@@ -57,7 +14,7 @@ const countries = [
   {src: "http://flagpedia.net/data/flags/normal/ec.png", name: "Ecuador", regions: ["Americas", "South America"]},
   {src: "http://flagpedia.net/data/flags/normal/fk.png", name: "Falkland Is.", regions: ["Americas", "South America"]},
   {src: "http://flagpedia.net/data/flags/normal/gl.png", name: "Greenland", regions: ["Americas", "North America"]},
-  {src: "http://flagpedia.net/data/flags/normal/gt.png", name: "Guatamala", regions: ["Americas", "North America"]},
+  {src: "http://flagpedia.net/data/flags/normal/gt.png", name: "Guatemala", regions: ["Americas", "North America"]},
   {src: "http://flagpedia.net/data/flags/normal/gy.png", name: "Guyana", regions: ["Americas", "South America"]},
   {src: "http://flagpedia.net/data/flags/normal/hn.png", name: "Honduras", regions: ["Americas", "North America"]},
   {src: "http://flagpedia.net/data/flags/normal/ht.png", name: "Haiti", regions: ["Americas", "North America"]},
@@ -84,7 +41,7 @@ const countries = [
   {src: "http://flagpedia.net/data/flags/normal/bj.png", name: "Benin", regions: ["Africa"]},
   {src: "http://flagpedia.net/data/flags/normal/bf.png", name: "Burkina Faso", regions: ["Africa"]},
   {src: "http://flagpedia.net/data/flags/normal/bw.png", name: "Botswana", regions: ["Africa"]},
-  {src: "http://flagpedia.net/data/flags/normal/cf.png", name: "Central African Republic", regions: ["Africa"]},
+  {src: "http://flagpedia.net/data/flags/normal/cf.png", name: "Central African Rep.", regions: ["Africa"]},
   {src: "http://flagpedia.net/data/flags/normal/cm.png", name: "Cameroon", regions: ["Africa"]},
   {src: "http://flagpedia.net/data/flags/normal/cd.png", name: "Dem. Rep. Congo", regions: ["Africa"]},
   {src: "http://flagpedia.net/data/flags/normal/td.png", name: "Chad", regions: ["Africa"]},
@@ -221,21 +178,6 @@ const countries = [
   {src: "http://flagpedia.net/data/flags/normal/ua.png", name: "Ukraine", regions: ["Europe", "Eastern Europe"]},
   {src: "http://flagpedia.net/data/flags/normal/gb.png", name: "United Kingdom", regions: ["Europe", "Western Europe"]},
 
-    
-  
-  //
-
-
-
-  // {src: "http://flagpedia.net/data/flags/normal/al.png", name: "Albania", region: "Europe"},
-  // {src: "http://flagpedia.net/data/flags/normal/dz.png", name: "Algeria"},
-  // {src: "http://flagpedia.net/data/flags/normal/ad.png", name: "Andorra"},
-  // {src: "http://flagpedia.net/data/flags/normal/ao.png", name: "Angola"},
-  // {src: "http://flagpedia.net/data/flags/normal/ag.png", name: "Antigua and Barbuda"},
-  // {src: "http://flagpedia.net/data/flags/normal/ar.png", name: "Argentina"},
-  // {src: "http://flagpedia.net/data/flags/normal/au.png", name: "Australia", region: "Oceania"},
-  // {src: "http://flagpedia.net/data/flags/normal/at.png", name: "Austria", region: "Europe"},
-
 
 ]
 
@@ -309,105 +251,3 @@ export const countriesByRegionArray = (regionChoice) => {
 
   
 }
-
-
-//export default countryLoader;
-  
-  //countryLoading("Asia");
-
-
-// const countries = [
-//     {src: "http://flagpedia.net/data/flags/normal/af.png", name: "Afghanistan", REGION: "Asia"},
-//     {src: "http://flagpedia.net/data/flags/normal/al.png", name: "Albania", REGION: "Asia"},
-//     {src: "http://flagpedia.net/data/flags/normal/dz.png", name: "Algeria"},
-//     {src: "http://flagpedia.net/data/flags/normal/ad.png", name: "Andorra"},
-//     {src: "http://flagpedia.net/data/flags/normal/ao.png", name: "Angola"},
-//     {src: "http://flagpedia.net/data/flags/normal/ag.png", name: "Antigua and Barbuda"},
-//     {src: "http://flagpedia.net/data/flags/normal/ar.png", name: "Argentina"},
-//     {src: "http://flagpedia.net/data/flags/normal/am.png", name: "Armenia"},
-//     {src: "http://flagpedia.net/data/flags/normal/au.png", name: "Australia", REGION: "Asia"},
-//     {src: "http://flagpedia.net/data/flags/normal/at.png", name: "Austria", REGION: "Europe"},
-    
-
-
-// ]
-
-
-// const countryLoading = (regionChoice) => {
-//   let returnStuff = {
-//   randomCountry: "",
-//   countryArray: []
-//   };
-
-
-//   function filterByRegion(item){
-//     if (item.REGION == regionChoice){
-//       return item;
-//     }
-//     else return false;
-//   }
-  
-//   if (regionChoice != null){
-
-//     let filtered = countries.filter(filterByRegion);
-//     returnStuff.randomCountry = filtered[Math.floor(Math.random() * filtered.length)];
-//     returnStuff.countryArray = filtered;
-//   }
-
-//   returnStuff.randomCountry = countries[Math.floor(Math.random() * countries.length)];
-//   returnStuff.countryArray = countries;
-  
-  
-  
-  
-// };
-
-// // function filterByRegion(countries, region){
-// //   if (item.region )
-// // }
-
-// function randomCountry(param) {
-
-//   function filterByRegion(item){
-//     if (item.REGION == param){
-//       return item;
-//     }
-//     else return false;
-//   }
-
-//   if (param != null){
-
-//     let filtered = countries.filter(filterByRegion); 
-//     return filtered[Math.floor(Math.random() * countries.length)];
-    
-//   }
-
-//     return countries[Math.floor(Math.random() * countries.length)];
-//   }
-
-//   function countryLoader() {
-//     if (param != null){
-
-//       let filtered = countries.filter(filterByRegion);
-//       return filtered;
-      
-//     }
-
-
-//     return countries;
-//   }
-
-
-// //   let arr = [1,2,3];
-
-// // for (let i = 0; i < arr.length(); i++){
-// // console.log(arr[i]);
-
-// // }
-  
-//   export default countries;
-//   export { randomCountry };
-//   export { countryLoader };
-
-
-

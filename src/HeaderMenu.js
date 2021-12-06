@@ -4,9 +4,10 @@ import { React, useState, useContext } from "react";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import Tooltip from "@mui/material/Tooltip";
 import CheckCircleOutlineTwoToneIcon from "@mui/icons-material/CheckCircleOutlineTwoTone";
-import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
-import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
+import DangerousOutlinedIcon from "@mui/icons-material/DangerousOutlined";
+import LocalFireDepartmentOutlinedIcon from "@mui/icons-material/LocalFireDepartmentOutlined";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -32,7 +33,6 @@ const HeaderMenu = (props) => {
     handleDifficultyClose();
   };
 
-
   let percentageRight = (
     (props.numCorrect / (props.numCorrect + props.numIncorrect)) *
     100
@@ -42,17 +42,16 @@ const HeaderMenu = (props) => {
     100
   ).toFixed(0);
 
-  function displayPercent(x){
-      if (isNaN(x)){
-          return 0;
-      }
-      return x;
-
+  function displayPercent(x) {
+    if (isNaN(x)) {
+      return 0;
+    }
+    return x;
   }
 
   return (
     <AppBar
-      sx={{ backgroundColor: "primary", minHeight: 60 }}
+      //sx={{ backgroundColor: "primary"}}
       elevation={5}
       position="static"
     >
@@ -61,19 +60,33 @@ const HeaderMenu = (props) => {
           component="div"
           sx={{
             display: "flex",
-            justifyContent: "space-evenly",
+            justifyContent: "center",
             width: "50%",
+            margin: "15px",
           }}
         >
+          <Tooltip title="Restart game - resets all points and streaks to 0!">
           <Button
+            sx={{ margin: "10px" }}
             variant="contained"
-            color="inherit"
+            onClick={props.handleResetButton}
+            color="error"
+          >
+            Reset Game
+          </Button>
+          </Tooltip>
+          <Button
+            sx={{ backgroundColor: "green", margin: "10px" }}
+            variant="contained"
+            //color="green"
             onClick={props.handleOpenRegionSelector}
           >
-            Open Region Dialog
+            Region Selector
           </Button>
           <Button
-            color="inherit"
+            sx={{ margin: "10px" }}
+            variant="contained"
+            color="secondary"
             aria-controls="difficulty"
             aria-haspopup="true"
             aria-expanded={openMenu ? "true" : undefined}
@@ -106,39 +119,90 @@ const HeaderMenu = (props) => {
               Hard
             </MenuItem>
           </Menu>
-          {/* <Button variant="outlined" onClick={handleClickOpen}>
-            Open Region Dialog
-          </Button> */}
         </Box>
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-evenly",
+            justifyContent: "center",
             width: "50%",
           }}
         >
-            <Box>
-          <CheckCircleOutlineTwoToneIcon fontSize="large"></CheckCircleOutlineTwoToneIcon>
-          {props.numCorrect}/{props.numIncorrect + props.numCorrect}
-          {"(" + displayPercent(percentageRight) + "%)"}</Box>
-          
+          <Tooltip title="Number/Percent of correct choices this game!">
+            <Box
+              sx={{
+                //backgroundColor: 'white',
+                //color: "lime",
+                //borderColor: 'lime',
+                //border: "dashed white 3px",
+                padding: "5px",
+                marginRight: "2rem",
+              }}
+            >
+              <CheckCircleOutlineTwoToneIcon
+                fontSize="large"
+                sx={{
+                  //backgroundColor: 'white',
+                  color: "lime",
+                  padding: "5px",
+                  //marginLeft: '5px'
+                  //borderColor: 'lime',
+                }}
+              ></CheckCircleOutlineTwoToneIcon>
 
-          <Box>
-          <DangerousOutlinedIcon fontSize="large"></DangerousOutlinedIcon>
-          {props.numIncorrect}/{props.numIncorrect + props.numCorrect}{" "}
-          {"(" + displayPercent(percentageWrong) + "%)"}
-          
-          
-          </Box>
+              <Typography variant="h5">
+                {props.numCorrect}/{props.numIncorrect + props.numCorrect}
+                {"(" + displayPercent(percentageRight) + "%)"}
+              </Typography>
+            </Box>
+          </Tooltip>
 
-          <Box><LocalFireDepartmentOutlinedIcon></LocalFireDepartmentOutlinedIcon>
-          {props.streak}
-          </Box>
+          <Tooltip title="Number/Percent of incorrect choices this game!">
+            <Box
+              sx={{
+                padding: "5px",
+                marginRight: "2rem",
+              }}
+            >
+              <DangerousOutlinedIcon
+                fontSize="large"
+                sx={{
+                  //backgroundColor: 'white',
+                  color: "red",
+                  padding: "5px",
+                  //borderColor: 'lime',
+                }}
+              ></DangerousOutlinedIcon>
+              <Typography variant="h5">
+                {props.numIncorrect}/{props.numIncorrect + props.numCorrect}{" "}
+                {"(" + displayPercent(percentageWrong) + "%)"}
+              </Typography>
+            </Box>
+          </Tooltip>
 
-
+          <Tooltip title="Number of correct guesses in a row! See how long a streak you can get.">
+            <Box
+              sx={{
+                padding: "5px",
+                marginRight: "2rem",
+              }}
+            >
+              <LocalFireDepartmentOutlinedIcon
+                fontSize="large"
+                sx={{
+                  //backgroundColor: 'white',
+                  color: "orange",
+                  padding: "5px",
+                  //borderColor: 'lime',
+                }}
+              >
+                {" "}
+              </LocalFireDepartmentOutlinedIcon>
+              <Typography variant="h5">{props.streak}</Typography>
+            </Box>
+          </Tooltip>
         </Box>
       </Toolbar>
-      <Toolbar>
+      {/* <Toolbar>
         <Box
           sx={{
             display: "flex",
@@ -148,8 +212,7 @@ const HeaderMenu = (props) => {
         >
           <Typography variant="h4">{props.hoveredOverFlagName}</Typography>
         </Box>
-      </Toolbar>
-
+      </Toolbar> */}
     </AppBar>
   );
 };

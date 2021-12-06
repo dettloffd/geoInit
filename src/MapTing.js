@@ -73,8 +73,8 @@ const MapTing = (props) => {
         break;
       case "Eastern Asia":
         setMapView({
-          mapCoords: [95, 20],
-          mapZoom: 3,
+          mapCoords: [95, 17],
+          mapZoom: 2.75,
         });
         break;
         case "Middle East":
@@ -204,9 +204,10 @@ const MapTing = (props) => {
                       //fill: geo.properties.REGION_UN == props.regionSettings ? "#378805" : "#D6D6DA" ,
 
                       fill:
-                        geo.properties.NAME == props.pickedCountry
-                          ? "#378805"
-                          : "#D6D6DA",
+                        (geo.properties.NAME == props.pickedCountry || geo.properties.name_long == props.pickedCountry)
+                          // ? "#378805"
+                          ? "#54a858"
+                          : "#e1e1e6",
                       //fill: props.regionSettings
                       //fill: "#D6D6DA",
                       outline: "none",
@@ -215,13 +216,18 @@ const MapTing = (props) => {
                       //outline: "#4CAF50 solid",
                     },
                     hover: {
-                      fill: "#F53",
+                      fill:                         geo.properties.NAME == props.pickedCountry
+                      // ? "#378805"
+                      ? "#54a858"
+                      : "#D6D6DA",
 
                       outline: "none",
+                      stroke: "red",
+                      strokeWidth: ".03",
                       //outline: "#4CAF50 solid",
                     },
                     pressed: {
-                      fill: "#E42",
+                      fill: "#e1e1e6",
                       outline: "none",
                     },
                   }}
@@ -231,8 +237,6 @@ const MapTing = (props) => {
           </Geographies>
         </ZoomableGroup>
       </ComposableMap>
-      
-      <button onClick={getStuff}>getgetget</button>
       
       {/* <button value={"Europe"} onClick={(e) => chooseRegion(e.target.value) } >europe</button>
       <button value={"Asia"} onClick={(e) => chooseRegion("Asia") } >Asia</button>

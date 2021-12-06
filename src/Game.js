@@ -2,6 +2,8 @@
 import { React, useState, useEffect, useContext, forwardRef } from "react";
 import { randomCountry, countriesByRegionArray } from "./countries.js";
 import { GlobalState } from "./GlobalState.js";
+import "./Game.css";
+
 //import { GlobalProvider } from "./GlobalState.js";
 import { v4 as uuidv4 } from "uuid";
 //import { uuid } from 'uuidv4';
@@ -11,16 +13,18 @@ import FlagCard from "./FlagCard.js";
 import RegionSelectorPopup from "./UIcomponents/RegionSelectorPopup.js";
 
 //import ButtonsRow from "./ButtonsRow.js";
-//import "./Game.css";
+import "./Game.css";
 //import uuid from "uuid/v4";
 
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import Fab from "@mui/material/Fab";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import CheckCircleOutlineTwoToneIcon from "@mui/icons-material/CheckCircleOutlineTwoTone";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -102,10 +106,6 @@ const Game = () => {
     setHoveredOverFlagName("");
   }, [gameState.difficulty, gameState.someCoords, gameState.chosenRegion]);
 
-  // useEffect(() => {
-  //   something();
-  // }, [snackbarState.severity]);
-
   const resetGame = () => {
     fullReset();
     setHoveredOverFlagName("");
@@ -160,28 +160,21 @@ const Game = () => {
 
   let cards = generateCards();
 
-  const setNewCoords = () => {
-    setGameState((prevState) => ({
-      ...prevState,
-      someCoords: [50, 50],
-    }));
-  };
-
   const something = () => {
     return (
       <Snackbar
         open={snackbarState.openSnackbar}
         autoHideDuration={1500}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        sx={{width: "30%", height: "20%"}}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        sx={{ width: "30%", height: "20%" }}
       >
         <Alert
           onClose={handleClose}
           severity={snackbarState.severity}
           sx={{ width: "100%" }}
         >
-          {snackbarState.severity == "success" ? "okay cool" : "nuh bruh"}
+          {snackbarState.severity == "success" ? "Correct!" : "Try again!"}
         </Alert>
       </Snackbar>
     );
@@ -190,34 +183,65 @@ const Game = () => {
 
   return (
     <>
-      <Container sx={{ display: "flex", flexDirection: "column" }}>
-        {/* <Button variant="outlined" onClick={handleClickOpen}>
-          Open Region Dialog
-        </Button> */}
-        Streak: {gameState.streakCounter}
-        <br />
-        Correct this game: {gameState.correctChoices}
-        <br />
-        Incorrect this game: {gameState.incorrectChoices}
-        <br />
-        Incorrect this round: {gameState.thisRoundIncorrect}
-        <HeaderMenu
-          handleOpenRegionSelector={handleOpenRegionSelector}
-          hoveredOverFlagName={hoveredOverFlagName}
-          numCorrect={gameState.correctChoices}
-          numIncorrect={gameState.incorrectChoices}
-          streak={gameState.streakCounter}
-        >
-          {/* <HeaderMenu handleOpenRegionSelector={() => handleOpenRegionSelector()}> */}
-        </HeaderMenu>
+      <HeaderMenu
+        handleOpenRegionSelector={handleOpenRegionSelector}
+        handleResetButton={fullReset}
+        hoveredOverFlagName={hoveredOverFlagName}
+        numCorrect={gameState.correctChoices}
+        numIncorrect={gameState.incorrectChoices}
+        streak={gameState.streakCounter}
+      >
+        {/* <HeaderMenu handleOpenRegionSelector={() => handleOpenRegionSelector()}> */}
+      </HeaderMenu>
+      <Container
+        sx={{ display: "flex", flexDirection: "column", minWidth: "70%" }}
+      >
         {/* <SnackbarAlert open={snackbarState.openSnackbar} onClose={handleCloseSnackbar} messageType={snackbarState.severity}></SnackbarAlert> */}
         {/* {scoreState.incorrectChoices} */}
         <RegionSelectorPopup open={openRegionSelector} onClose={handleClose} />
         {/* <Grid border={"5px dashed grey"} container xs={9} spacing={2}> */}
-        <Button onClick={keepPlaying}>Keep Playing</Button>
+        {/* <Button onClick={keepPlaying}>Keep Playing</Button> */}
         {mysnack}
+
         <Box display="flex" justifyContent="space-around">
-          <Box className="mapTest" minWidth="75%">
+          {/* <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Button variant="contained">clicky</Button>
+            <Button variant="contained">clicky</Button>
+            <Button variant="contained">cliiiiiiiiicky</Button>
+            <CheckCircleOutlineTwoToneIcon fontSize="large"></CheckCircleOutlineTwoToneIcon>
+            {gameState.correctChoices}
+          </Box> */}
+
+          <Box className="mapTest" minWidth="85%">
+          {/* <Fab
+          className="continue-fab"
+          size="large"
+          //color="primary"
+          //aria-label="add"
+          variant="extended"
+          onClick={keepPlaying}
+          
+          
+          sx={{position: "absolute", left: '0', right: '0', margin: "auto", width: '300px', backgroundColor: "#96D294" }}
+        >
+          Continue Playing?
+        </Fab> */}
+            {gameState.isWon == true ? (
+          <Fab
+          className="continue-fab"
+          size="large"
+          //color="primary"
+          //aria-label="add"
+          variant="extended"
+          onClick={keepPlaying}
+          
+          
+          sx={{position: "absolute", left: '0', right: '0', margin: "auto", width: '300px', backgroundColor: "#54a858" }}
+        >
+          Continue Playing?
+        </Fab>
+            ) : null}
+
             <MapTing
               setTooltipContent={setContent}
               someCoords={gameState.someCoords}
@@ -232,7 +256,7 @@ const Game = () => {
           {cards}
         </Box>
         {/* <button onClick={() => setOpenPopup(true)}>launch modal</button> */}
-        <button onClick={resetGame}>reset</button>
+        {/* <button onClick={resetGame}>reset</button> */}
       </Container>
     </>
   );

@@ -105,7 +105,7 @@ const RegionSelectorMap = (props) => {
 
 
 
-                      fill: (props.mousedOverRegionCountries.includes(geo.properties.NAME) || geo.properties.REGION_UN == props.regionMousedOver) ? "#378805" : "#D6D6DA" ,
+                      fill: (props.mousedOverRegionCountries.includes(geo.properties.NAME) || geo.properties.REGION_UN == props.regionMousedOver) ? "#54a858" : "#D6D6DA" ,
                       //fill: geo.properties.REGION_UN == props.regionMousedOver ? "#378805" : "#D6D6DA" ,
 
 

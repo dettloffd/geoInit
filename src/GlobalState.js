@@ -199,12 +199,6 @@ export const GlobalProvider = (props) => {
     constructArray();
     setGameState((prevState) => ({
       ...prevState,
-      //flags: updatedArray,
-      //isWon: param == gameState.pickedCountry ? true : false,
-      //correctChoices: 0,
-      //incorrectChoices: 0,
-      //thisRoundIncorrect: 0,
-      //streakCounter: 0,
     }));
   };
 

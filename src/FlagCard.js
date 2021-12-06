@@ -1,17 +1,19 @@
 import { Grid, Box } from "@mui/material";
-import { React, useState, useEffect, useContext } from "react";
+// import { React, useState, useEffect, useContext } from "react";
+import * as React from 'react';
 import { styled } from "@mui/material/styles";
 import { display, keyframes } from "@mui/system";
 import { css } from "@emotion/react";
 import { GlobalState } from "./GlobalState.js";
 
-
 import "./FlagCard.css";
 
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 
 const rightChoice = "flag-card-right";
 const wrongChoice = "flag-card-wrong";
@@ -19,18 +21,29 @@ const defaultFlagCard = "flag-card";
 
 //// https://stackoverflow.com/questions/66400625/merge-a-single-css-property-in-emotion
 
-
 const FlagCard = (props) => {
-
   //console.log(props);
+
+  const HtmlTooltip = styled(({ className, ...props }) => (
+    <Tooltip placement="left" {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(28),
+      border: '1px solid #dadde9',
+    },
+  }));
+  
 
   const innerclick = () => {
     props.handleFlagClick(props.countryName);
   };
 
-   const hoverFlagDisplay = () => {
-    props.displayHoveredOverFlag(props.countryName)
-   };
+  const hoverFlagDisplay = () => {
+    props.displayHoveredOverFlag(props.countryName);
+  };
 
   const moveInLeft = keyframes`
   0% {
@@ -93,24 +106,24 @@ translateY('-55px')
   //   }
   // }
 
-
   const displayStatus = () => {
     if (props.isClicked === true && props.countryName != props.pickedCountry) {
       return wrongChoice;
-    } 
-    else if (props.isClicked === true && props.countryName == props.pickedCountry){
+    } else if (
+      props.isClicked === true &&
+      props.countryName == props.pickedCountry
+    ) {
       return rightChoice;
-    }
-    else{
+    } else {
       return defaultFlagCard;
     }
-  }
+  };
   return (
     // <div height="200" width="300" onClick={() => props.handleFlagClick(props.name)}>
     // <div height="200" width="300" onClick={() => console.log(props.name)}>
 
     <Box
-    className={displayStatus()}
+      className={displayStatus()}
       component="div"
       sx={{
         
@@ -148,18 +161,38 @@ translateY('-55px')
       onMouseOver={hoverFlagDisplay}
     >
       {/* <img height="38%" width="62%" src={props.flagImage}/> */}
-      <Box sx={{
-        //padding: '5px',
-      }}>
-      <img height="100%" width="100%" src={props.flagImage} />
-      </Box>
-      {/* <p color="black">{props.countryName}</p> */}
+      <HtmlTooltip
+        title={
+          // <React.Fragment>
+          //   <Typography color="inherit">Tooltip with HTML</Typography>
+          //   <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
+          //   {"It's very engaging. Right?"}
+          // </React.Fragment>
+          <React.Fragment>
+          
+          <em>{props.countryName}</em> 
+        </React.Fragment>
+        }
+      >
+        
+      
+        <Box
+          sx={
+            {
+              
+              //padding: '5px',
+            }
+          }
+        >
+          <img height="100%" width="100%" src={props.flagImage} />
+        </Box>
+        {/* <p color="black">{props.countryName}</p> */}
 
-      {/* <div height="100" width="150" onClick={innerclick}>
+        {/* <div height="100" width="150" onClick={innerclick}>
       <img height="100" width="150" src={props.flagImage} />
       <p color="black">{props.countryName}</p>
     </div> */}
-
+    </HtmlTooltip>
     </Box>
   );
 };
