@@ -1,9 +1,7 @@
-import { Grid, Box, AppBar, Typography } from "@mui/material";
+import { Box, AppBar, Typography } from "@mui/material";
 import { React, useState, useContext } from "react";
 
 import Button from "@mui/material/Button";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import Tooltip from "@mui/material/Tooltip";
 import CheckCircleOutlineTwoToneIcon from "@mui/icons-material/CheckCircleOutlineTwoTone";
 import DangerousOutlinedIcon from "@mui/icons-material/DangerousOutlined";
@@ -16,7 +14,6 @@ import { GlobalState } from "./GlobalState.js";
 
 const HeaderMenu = (props) => {
   const { setDifficulty, fullReset } = useContext(GlobalState);
-  //console.log(props);
   const [anchorElem, setAnchorElem] = useState(null);
   const openMenu = Boolean(anchorElem);
   const handleDifficultyClose = () => {
@@ -50,11 +47,7 @@ const HeaderMenu = (props) => {
   }
 
   return (
-    <AppBar
-      //sx={{ backgroundColor: "primary"}}
-      elevation={5}
-      position="static"
-    >
+    <AppBar elevation={5} position="static">
       <Toolbar>
         <Box
           component="div"
@@ -66,19 +59,18 @@ const HeaderMenu = (props) => {
           }}
         >
           <Tooltip title="Restart game - resets all points and streaks to 0!">
-          <Button
-            sx={{ margin: "10px" }}
-            variant="contained"
-            onClick={props.handleResetButton}
-            color="error"
-          >
-            Reset Game
-          </Button>
+            <Button
+              sx={{ margin: "10px" }}
+              variant="contained"
+              onClick={props.handleResetButton}
+              color="error"
+            >
+              Reset Game
+            </Button>
           </Tooltip>
           <Button
             sx={{ backgroundColor: "green", margin: "10px" }}
             variant="contained"
-            //color="green"
             onClick={props.handleOpenRegionSelector}
           >
             Region Selector
@@ -130,10 +122,6 @@ const HeaderMenu = (props) => {
           <Tooltip title="Number/Percent of correct choices this game!">
             <Box
               sx={{
-                //backgroundColor: 'white',
-                //color: "lime",
-                //borderColor: 'lime',
-                //border: "dashed white 3px",
                 padding: "5px",
                 marginRight: "2rem",
               }}
@@ -141,11 +129,8 @@ const HeaderMenu = (props) => {
               <CheckCircleOutlineTwoToneIcon
                 fontSize="large"
                 sx={{
-                  //backgroundColor: 'white',
                   color: "lime",
                   padding: "5px",
-                  //marginLeft: '5px'
-                  //borderColor: 'lime',
                 }}
               ></CheckCircleOutlineTwoToneIcon>
 
@@ -166,10 +151,8 @@ const HeaderMenu = (props) => {
               <DangerousOutlinedIcon
                 fontSize="large"
                 sx={{
-                  //backgroundColor: 'white',
                   color: "red",
                   padding: "5px",
-                  //borderColor: 'lime',
                 }}
               ></DangerousOutlinedIcon>
               <Typography variant="h5">
@@ -179,7 +162,7 @@ const HeaderMenu = (props) => {
             </Box>
           </Tooltip>
 
-          <Tooltip title="Number of correct guesses in a row! See how long a streak you can get.">
+          <Tooltip title="Number of correct guesses in a row!">
             <Box
               sx={{
                 padding: "5px",
@@ -189,10 +172,8 @@ const HeaderMenu = (props) => {
               <LocalFireDepartmentOutlinedIcon
                 fontSize="large"
                 sx={{
-                  //backgroundColor: 'white',
                   color: "orange",
                   padding: "5px",
-                  //borderColor: 'lime',
                 }}
               >
                 {" "}
@@ -202,17 +183,6 @@ const HeaderMenu = (props) => {
           </Tooltip>
         </Box>
       </Toolbar>
-      {/* <Toolbar>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
-          <Typography variant="h4">{props.hoveredOverFlagName}</Typography>
-        </Box>
-      </Toolbar> */}
     </AppBar>
   );
 };

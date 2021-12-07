@@ -1,4 +1,4 @@
-import React, { useState, useReducer, createContext } from "react";
+import React, { useState, createContext } from "react";
 import { countryLoader } from "./countries.js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -12,7 +12,6 @@ export const GlobalProvider = (props) => {
     pickedCountry: "",
     isWon: false,
     difficulty: 5,
-    someCoords: [10, 10],
     chosenRegion: "Europe",
     streakCounter: 0,
     correctChoices: 0,
@@ -20,12 +19,12 @@ export const GlobalProvider = (props) => {
     thisRoundIncorrect: 0,
   });
 
-  const [scoreState, setScoreState] = useState({
-    streakCounter: 0,
-    correctChoices: 0,
-    incorrectChoices: 0,
-    thisRoundIncorrect: 0,
-  });
+  // const [scoreState, setScoreState] = useState({
+  //   streakCounter: 0,
+  //   correctChoices: 0,
+  //   incorrectChoices: 0,
+  //   thisRoundIncorrect: 0,
+  // });
 
   const [snackbarState, setSnackbarState] = useState({
     openSnackbar: false,
@@ -33,18 +32,6 @@ export const GlobalProvider = (props) => {
   })
 
   const constructArray = () => {
-    // let myArr = [];
-    // let uniqueSet = new Set();
-    // while (uniqueSet.size < gameState.difficulty) {
-    //   let addition = randomCountry();
-    //   uniqueSet.add(addition);
-    // }
-    // myArr = [...uniqueSet];
-    // let picked = myArr[Math.floor(Math.random() * myArr.length)];
-    // for (let i = 0; i < myArr.length; i++) {
-    //   myArr[i].id = uuidv4();
-    //   myArr[i].isClicked = false;
-    // }
 
     let myArr = [];
     let uniqueSet = new Set();
@@ -68,20 +55,13 @@ export const GlobalProvider = (props) => {
   };
 
   const handleFlagClick = (param) => {
-    //console.log(param);
 
     const updatedArray = gameState.flags.map((item) => {
-      //console.log(item.name);
-      if (item.name == param && item.isClicked == false && gameState.isWon == false) {
+      if (item.name === param && item.isClicked === false && gameState.isWon === false) {
         const updatedItem = {
           ...item,
           isClicked: true,
         };
-        console.log("UPDATED>....");
-        console.log(updatedItem);
-
-        console.log("noot UPDATED>....");
-        console.log(item);
 
         updateStats(item);
         updateSnackbar(item);
@@ -89,96 +69,43 @@ export const GlobalProvider = (props) => {
       }
       return item;
     });
-
-    // const updatedArray = gameState.flags.map((item) => {
-    //   //console.log(item.name);
-    //   if (item.name == param && item.isClicked == false) {
-    //     const updatedItem = {
-    //       ...item,
-    //       isClicked: true,
-    //     };
-
-    //     return updatedItem;
-    //   }
-    //   return item;
-    // });
-
-    //updateStats(param);
-
-    // if (param == gameState.pickedCountry){
-    //   setGameState((prevState) => ({
-    //     ...prevState,
-    //     flags: updatedArray,
-    //     isWon: true
-    //   }));
-
-    // }else{
-    //   setGameState((prevState) => ({
-    //     ...prevState,
-    //     flags: updatedArray,
-    //   }));
-    // }
-
     setGameState((prevState) => ({
       ...prevState,
       flags: updatedArray,
-
-      // isWon: param == gameState.pickedCountry ? true : false,
-      // correctChoices: param == gameState.pickedCountry ? gameState.correctChoices++ : gameState.correctChoices,
-      // incorrectChoices: param == gameState.pickedCountry ? gameState.incorrectChoices: gameState.incorrectChoices++,
-      // thisRoundIncorrect: param == gameState.pickedCountry ? 0 : gameState.thisRoundIncorrect++,
-      // streakCounter: (param == gameState.pickedCountry && gameState.thisRoundIncorrect == 0) ? gameState.streakCounter++ : 0,
     }));
-    //updateStats(param);
-
-    //updateStats(param);
-    //console.log(gameScore);
-    //console.log("PARAM ISSSSS...")
-    //console.log(param);
   };
 
   const updateSnackbar = (something) => {
-    //console.log(something.name);
-
     setSnackbarState({
       openSnackbar: true,
-      severity: something.name == gameState.pickedCountry ? "success" : "error"
+      severity: something.name === gameState.pickedCountry ? "success" : "error"
 
     });
-
-    console.log(snackbarState.severity);
-
   }
 
   const updateStats = (param) => {
     setGameState((prevState) => ({
       ...prevState,
-      //flags: updatedArray,
-      isWon: param.name == gameState.pickedCountry ? true : false,
+      isWon: param.name === gameState.pickedCountry ? true : false,
       correctChoices:
-        param.name == gameState.pickedCountry
+        param.name === gameState.pickedCountry
           ? gameState.correctChoices + 1
           : gameState.correctChoices,
-      //correctChoices: param == gameState.pickedCountry ? gameState.correctChoices++ : gameState.correctChoices,
 
       incorrectChoices:
-        param.name == gameState.pickedCountry
+        param.name === gameState.pickedCountry
           ? gameState.incorrectChoices
           : gameState.incorrectChoices+1,
       thisRoundIncorrect:
-        param.name == gameState.pickedCountry
+        param.name === gameState.pickedCountry
           ? 0
           : gameState.thisRoundIncorrect+1,
       streakCounter:
-        param.name == gameState.pickedCountry &&
-        gameState.thisRoundIncorrect == 0
+        param.name === gameState.pickedCountry &&
+        gameState.thisRoundIncorrect === 0
           ? gameState.streakCounter+1
           : 0,
     }));
-    //param.name != gameState.pickedCountry ? setScoreState.incorrectChoices(1) : setOtherState(0);
-   //// console.log("PARAM ISSSSS...");
-    ///console.log(gameState.flags[param]);
-    //determineWinState();
     
   };
 
@@ -186,8 +113,6 @@ export const GlobalProvider = (props) => {
     constructArray();
     setGameState((prevState) => ({
       ...prevState,
-      //flags: updatedArray,
-      //isWon: param == gameState.pickedCountry ? true : false,
       correctChoices: 0,
       incorrectChoices: 0,
       thisRoundIncorrect: 0,
@@ -207,8 +132,6 @@ export const GlobalProvider = (props) => {
       ...prevState,
       difficulty: Number(choice),
     }));
-
-    //setGameState({difficulty: easy});
   };
 
   const chooseRegion = (region) => {
@@ -227,14 +150,6 @@ export const GlobalProvider = (props) => {
     constructArray();
   };
 
-
-  // const determineWinState = () => {
-  //   if (gameState.isWon == true){
-  //     continueGame();
-  //   }
-
-  // }
-
   return (
     <GlobalState.Provider
       value={{
@@ -247,12 +162,10 @@ export const GlobalProvider = (props) => {
         changeRegion,
         fullReset,
         continueGame,
-        scoreState,
+        //scoreState,
         snackbarState,
         setSnackbarState,
         updateSnackbar
-        // gameScore,
-        // setGameScore
       }}
       mapSettings
     >

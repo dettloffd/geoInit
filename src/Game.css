@@ -1,21 +1,3 @@
-/* .mapTest {
-    
-    max-width: 100vh;
-
-} */
-
-/* .mainDiv {
-
-
-
-} */
-
-/* .gameDisplay {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-
-} */
-
 .continue-fab {
     animation-name: moveInRight;
     animation-duration: 0.6s;
